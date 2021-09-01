@@ -267,9 +267,10 @@ class InputSpinner extends Component {
 
 		let num = value;
 		let parsedNum = value;
-		if (isEmptyValue) {
-			num = this.state.min;
-		}
+		// // if (isEmptyValue) {
+		// // 	num = this.state.min;
+		// // }
+
 
 		if (this.props.disabled) return;
 
@@ -312,18 +313,16 @@ class InputSpinner extends Component {
 		} else {
 			num = this._withinRange(num);
 		}
-
-		if (this.state.value !== num && isCallable(this.props.onChange)) {
-			const res = await this.props.onChange(parsedNum);
-			if (!isEmptyValue) {
-				if (res === false) {
-					return;
-				} else if (isNumeric(res)) {
-					num = this._parseNum(res);
-				}
-			}
-		}
-
+		// if (this.state.value !== num && isCallable(this.props.onChange)) {
+		// 	const res = await this.props.onChange(parsedNum);
+		// // 	if (!isEmptyValue) {
+		// // 		if (res === false) {
+		// // 			return;
+		// // 		} else if (isNumeric(res)) {
+		// // 			num = this._parseNum(res);
+		// // 		}
+		// // 	}
+		// }
 		this.setState({value: num});
 	}
 
@@ -382,7 +381,11 @@ class InputSpinner extends Component {
 		if (this.props.onBlur) {
 			this.props.onBlur(e);
 		}
-		this.setState({focused: false});
+		if (this.state.value === null || this.state.value === "" || this.state.value < this.state.min) {
+			this.setState({focused: false, value: this.state.min || 0 });
+		} else {
+			this.setState({focused: false});
+		}
 	}
 
 	/**
@@ -1192,7 +1195,7 @@ class InputSpinner extends Component {
 					: this.props.buttonLeftText
 					? this.props.buttonLeftText
 					: "-";
-			return <Text {...this.props.buttonTextProps} style={this._getStyleLeftButtonText()}>{text}</Text>;
+			return <Text style={this._getStyleLeftButtonText()}>{text}</Text>;
 		}
 	}
 
@@ -1216,7 +1219,7 @@ class InputSpinner extends Component {
 					: this.props.buttonRightText
 					? this.props.buttonRightText
 					: "+";
-			return <Text {...this.props.buttonTextProps} style={this._getStyleRightButtonText()}>{text}</Text>;
+			return <Text style={this._getStyleRightButtonText()}>{text}</Text>;
 		}
 	}
 
@@ -1305,6 +1308,9 @@ class InputSpinner extends Component {
 	 * @returns {*}
 	 */
 	render() {
+		console.log("A",this.state.value)
+
+
 		return (
 			<View style={this._getContainerStyle()} {...this.props.containerProps}>
 				{this._renderLeftButton()}
@@ -1450,7 +1456,6 @@ InputSpinner.propTypes = {
 	inputProps: PropTypes.object,
 	leftButtonProps: PropTypes.object,
 	rightButtonProps: PropTypes.object,
-	buttonTextProps: PropTypes.object,
 };
 
 InputSpinner.defaultProps = {
@@ -1511,7 +1516,6 @@ InputSpinner.defaultProps = {
 	inputProps: null,
 	leftButtonProps: null,
 	rightButtonProps: null,
-	buttonTextProps: null,
 };
 
 export default InputSpinner;
