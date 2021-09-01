@@ -383,6 +383,9 @@ class InputSpinner extends Component {
 			this.props.onBlur(e);
 		}
 		if (this.state.value === null || this.state.value === "" || this.state.value < this.state.min) {
+			if(isCallable(this.props.onChange)){
+				this.props.onChange(this.state.min || 0);
+			};
 			this.setState({focused: false, value: this.state.min || 0 });
 		} else {
 			this.setState({focused: false});
