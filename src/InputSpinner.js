@@ -1199,7 +1199,7 @@ class InputSpinner extends Component {
 					: this.props.buttonLeftText
 					? this.props.buttonLeftText
 					: "-";
-			return <Text style={this._getStyleLeftButtonText()}>{text}</Text>;
+			return <Text {...this.props.buttonTextProps} style={this._getStyleLeftButtonText()}>{text}</Text>;
 		}
 	}
 
@@ -1223,7 +1223,7 @@ class InputSpinner extends Component {
 					: this.props.buttonRightText
 					? this.props.buttonRightText
 					: "+";
-			return <Text style={this._getStyleRightButtonText()}>{text}</Text>;
+			return <Text {...this.props.buttonTextProps} style={this._getStyleRightButtonText()}>{text}</Text>;
 		}
 	}
 
@@ -1457,6 +1457,7 @@ InputSpinner.propTypes = {
 	inputProps: PropTypes.object,
 	leftButtonProps: PropTypes.object,
 	rightButtonProps: PropTypes.object,
+	buttonTextProps: PropTypes.object,
 };
 
 InputSpinner.defaultProps = {
@@ -1517,6 +1518,7 @@ InputSpinner.defaultProps = {
 	inputProps: null,
 	leftButtonProps: null,
 	rightButtonProps: null,
+	buttonTextProps: null,
 };
 
 export default InputSpinner;
