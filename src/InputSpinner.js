@@ -1308,9 +1308,6 @@ class InputSpinner extends Component {
 	 * @returns {*}
 	 */
 	render() {
-		console.log("A",this.state.value)
-
-
 		return (
 			<View style={this._getContainerStyle()} {...this.props.containerProps}>
 				{this._renderLeftButton()}
