@@ -313,18 +313,19 @@ class InputSpinner extends Component {
 		} else {
 			num = this._withinRange(num);
 		}
-		// if (this.state.value !== num && isCallable(this.props.onChange)) {
-		// 	const res = await this.props.onChange(parsedNum);
-		// // 	if (!isEmptyValue) {
-		// // 		if (res === false) {
-		// // 			return;
-		// // 		} else if (isNumeric(res)) {
-		// // 			num = this._parseNum(res);
-		// // 		}
-		// // 	}
-		// }
+		if (this.state.value !== num && isCallable(this.props.onChange)) {
+			const res = await this.props.onChange(parsedNum);
+			if (!isEmptyValue) {
+				if (res === false) {
+					return;
+				} else if (isNumeric(res)) {
+					num = this._parseNum(res);
+				}
+			}
+		}
 		this.setState({value: num});
 	}
+
 
 	/**
 	 * On buttons press out
